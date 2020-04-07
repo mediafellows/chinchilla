@@ -3,12 +3,12 @@
   "version": "0.0.3",
   "description": "Awesome module",
   "keywords": [],
-  "homepage": "https://github.com/mediapeers/chinchilla",
-  "bugs": "https://github.com/mediapeers/chinchilla/issues",
+  "homepage": "https://github.com/mediafellows/chinchilla",
+  "bugs": "https://github.com/mediafellows/chinchilla/issues",
   "author": {
     "name": "Johannes-Kostas Götzinger @ Mediapeers GmbH",
     "email": "goetzinger@mediapeers.com",
-    "url": "https://github.com/mediapeers"
+    "url": "https://github.com/mediafellows"
   },
   "main": "./dist/chinchilla.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mediapeers/chinchilla.git"
+    "url": "https://github.com/mediafellows/chinchilla.git"
   },
   "dependencies": {
     "async-repl": "^0.4.0",

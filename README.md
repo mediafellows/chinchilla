@@ -175,7 +175,7 @@ chch('um', 'user').$m('get', id: 1).then (result) ->
 
 ### CLI
 
-Install: `yarn global add "https://github.com/mediapeers/chinchilla"`
+Install: `yarn global add "https://github.com/mediafellows/chinchilla"`
 
 Run: `chch <env> <affiliation>`, where
 * 'env' defaults to 'development' and
