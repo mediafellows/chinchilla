@@ -3,7 +3,7 @@
 import * as Promise from 'bluebird'
 import * as Cookies from 'cookies-js'
 import * as UriTemplate from 'uri-templates'
-import * as request from 'superagent'
+import request from 'superagent'
 import * as qs from 'querystringify'
 import chch from './chinchilla'
 

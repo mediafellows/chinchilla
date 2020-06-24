@@ -1,4 +1,4 @@
-import * as request from 'superagent'
+import request from 'superagent'
 import { get, result } from 'lodash'
 import { Config } from './config'
 import { Cache } from './cache'
@@ -18,7 +18,7 @@ export class Tools {
       return request
         .agent()
         //.use(sdebug(console.info))
-        .set({ "Accept-Encoding" : "gzip,deflate" })
+        .set("Accept-Encoding", "gzip,deflate")
     }
     else {
       return request

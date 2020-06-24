@@ -1,7 +1,14 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const Promise = require("bluebird");
+const Promise = __importStar(require("bluebird"));
 const cache_1 = require("./cache");
 const tools_1 = require("./tools");
 class ContextAction {

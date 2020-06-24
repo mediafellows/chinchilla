@@ -1,8 +1,15 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const UriTemplate = require("uri-templates");
-const Promise = require("bluebird");
+const UriTemplate = __importStar(require("uri-templates"));
+const Promise = __importStar(require("bluebird"));
 const cache_1 = require("./cache");
 const result_1 = require("./result");
 const extractor_1 = require("./extractor");

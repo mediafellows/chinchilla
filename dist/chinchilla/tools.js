@@ -1,6 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const request = require("superagent");
+const superagent_1 = __importDefault(require("superagent"));
 const lodash_1 = require("lodash");
 const cache_1 = require("./cache");
 //import * as sdebug from 'superdebug'
@@ -13,13 +16,13 @@ class Tools {
         if (Tools.isNode) {
             //const agent = new http.Agent()
             //agent.maxSockets = 100
-            return request
+            return superagent_1.default
                 .agent()
                 //.use(sdebug(console.info))
-                .set({ "Accept-Encoding": "gzip,deflate" });
+                .set("Accept-Encoding", "gzip,deflate");
         }
         else {
-            return request;
+            return superagent_1.default;
         }
     }
     static handleError(err, res, config) {
