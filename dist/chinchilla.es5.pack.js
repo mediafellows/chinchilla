@@ -17424,7 +17424,8 @@ var Tools = /** @class */ (function () {
                 return request
                     .agent()
                     //.use(sdebug(console.info))
-                    .set({ "Accept-Encoding": "gzip,deflate" });
+                    .set({ "Accept-Encoding": "gzip,deflate" })
+                    .set({ "X-Window-Location": (typeof window !== 'undefined') ? window.location.href : "" });
             }
             else {
                 return request;
