@@ -25651,6 +25651,9 @@ var Action = /** @class */ (function () {
             if (config.getFlavours()) {
                 req = req.set('Mpx-Flavours', config.getFlavours());
             }
+            if (!tools_1.Tools.isNode) {
+                req = req.set("X-Window-Location", lodash_1.get(window, 'location.href', ''));
+            }
             // add custom headers
             if (options && (options.header || options.headers)) {
                 var headers = options.headers || options.header;
