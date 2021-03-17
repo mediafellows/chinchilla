@@ -139,6 +139,9 @@ export class Action {
       if (config.getFlavours()) {
         req = req.set('Mpx-Flavours', config.getFlavours())
       }
+      if (!Tools.isNode) {
+        req = req.set("X-Window-Location", get(window, 'location.href', ''));
+      }
 
       // add custom headers
       if (options && (options.header || options.headers)) {
