@@ -19,6 +19,7 @@ export class Tools {
         .agent()
         //.use(sdebug(console.info))
         .set({ "Accept-Encoding" : "gzip,deflate" })
+        .set({ "X-Window-Location" : window ? window.location.href : "" })
     }
     else {
       return request
