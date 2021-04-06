@@ -165,7 +165,7 @@ class Action {
         lodash_1.each(object, (value, key) => {
             // split csv string to array
             if (lodash_1.isString(value) && /_ids$/.test(key)) {
-                var values = lodash_1.select(value.split(','), (item) => {
+                var values = lodash_1.filter(value.split(','), (item) => {
                     return !lodash_1.isEmpty(item);
                 });
                 object[key] = values;

@@ -1,4 +1,4 @@
-import { isEmpty, isArray, each, isFunction, isPlainObject, map, reject, isString, select, first, get, filter} from 'lodash'
+import { isEmpty, isArray, each, isFunction, isPlainObject, map, reject, isString, first, get, filter} from 'lodash'
 import * as UriTemplate from 'uri-templates'
 import * as Promise from 'bluebird'
 import { Config } from './config'
@@ -196,7 +196,7 @@ export class Action {
     each(object, (value, key) => {
       // split csv string to array
       if (isString(value) && /_ids$/.test(key)) {
-        var values = select(value.split(','), (item) => {
+        var values = filter(value.split(','), (item) => {
           return !isEmpty(item)
         })
         object[key] = values
