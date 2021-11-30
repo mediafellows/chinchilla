@@ -86,13 +86,8 @@ export class Action {
 
         if (!this.params[variable]) {
           const msg = `Required param '${variable}' for '${this.contextAction.template}' missing!`
-          if (config.settings.devMode) {
-            Watcher.complete(this.id)
-            return reject(new Error(msg))
-          }
-          else {
-            console.log(msg)
-          }
+          Watcher.complete(this.id)
+          return reject(new Error(msg))
         }
       }
 
