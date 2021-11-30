@@ -25605,13 +25605,8 @@ var Action = /** @class */ (function () {
                 var variable = lodash_1.get(required[index], 'variable');
                 if (!_this.params[variable]) {
                     var msg = "Required param '" + variable + "' for '" + _this.contextAction.template + "' missing!";
-                    if (config.settings.devMode) {
-                        watcher_1.Watcher.complete(_this.id);
-                        return reject(new Error(msg));
-                    }
-                    else {
-                        console.log(msg);
-                    }
+                    watcher_1.Watcher.complete(_this.id);
+                    return reject(new Error(msg));
                 }
             }
             var uri = _this.uriTmpl.fillFromObject(_this.params);

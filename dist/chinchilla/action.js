@@ -71,13 +71,8 @@ class Action {
                 var variable = lodash_1.get(required[index], 'variable');
                 if (!this.params[variable]) {
                     const msg = `Required param '${variable}' for '${this.contextAction.template}' missing!`;
-                    if (config.settings.devMode) {
-                        watcher_1.Watcher.complete(this.id);
-                        return reject(new Error(msg));
-                    }
-                    else {
-                        console.log(msg);
-                    }
+                    watcher_1.Watcher.complete(this.id);
+                    return reject(new Error(msg));
                 }
             }
             var uri = this.uriTmpl.fillFromObject(this.params);
