@@ -1,3 +1,5 @@
+[![Javascript CI](https://github.com/mediafellows/chinchilla/actions/workflows/javascript.yml/badge.svg)](https://github.com/mediafellows/chinchilla/actions/workflows/javascript.yml)
+
 **DEPRECATED:** Use [chipmunk](https://github.com/mediafellows/chipmunk) instead!
 
 # Chinchilla
