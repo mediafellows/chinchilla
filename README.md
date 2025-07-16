@@ -1,3 +1,4 @@
+**DEPRECATED:** Use [chipmunk](https://github.com/mediafellows/chipmunk) instead!
 
 # Chinchilla
 
