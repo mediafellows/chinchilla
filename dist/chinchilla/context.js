@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Context = exports.ContextCollectionAction = exports.ContextMemberAction = exports.ContextAction = void 0;
 const lodash_1 = require("lodash");
 const Promise = require("bluebird");
 const cache_1 = require("./cache");
 const tools_1 = require("./tools");
 class ContextAction {
     constructor(values = {}) {
-        lodash_1.each(values, (value, key) => {
+        (0, lodash_1.each)(values, (value, key) => {
             this[key] = value;
         });
     }
@@ -21,7 +22,7 @@ exports.ContextCollectionAction = ContextCollectionAction;
 class Context {
     static get(contextUrl, config) {
         config = config;
-        let key = lodash_1.first(contextUrl.split('?'));
+        let key = (0, lodash_1.first)(contextUrl.split('?'));
         let cachedContext;
         if (cachedContext = cache_1.Cache.instance.runtime.fetch(config.getCacheKey(key))) {
             return cachedContext;
@@ -80,7 +81,7 @@ class Context {
     constructor(dataPromise) {
         this.ready = dataPromise.then((data) => {
             this.data = data;
-            lodash_1.each(this.properties, function (property) {
+            (0, lodash_1.each)(this.properties, function (property) {
                 property.isAssociation = property.type && /^(http|https)\:/.test(property.type);
             });
             return this;

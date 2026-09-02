@@ -1,13 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NoCookies = exports.NoCache = void 0;
 const Promise = require("bluebird");
 const lodash_1 = require("lodash");
 const subject_1 = require("./chinchilla/subject");
 const config_1 = require("./chinchilla/config");
-exports.NoCookies = config_1.NoCookies;
+Object.defineProperty(exports, "NoCookies", { enumerable: true, get: function () { return config_1.NoCookies; } });
 const context_1 = require("./chinchilla/context");
 const cache_1 = require("./chinchilla/cache");
-exports.NoCache = cache_1.NoCache;
+Object.defineProperty(exports, "NoCache", { enumerable: true, get: function () { return cache_1.NoCache; } });
 const extractor_1 = require("./chinchilla/extractor");
 const watcher_1 = require("./chinchilla/watcher");
 const chch = Object.assign((one, two, three) => {
@@ -22,7 +23,7 @@ const chch = Object.assign((one, two, three) => {
     extractor: extractor_1.Extractor,
     new: (app, model, attrs = {}, config) => {
         config = config || config_1.Config.instance;
-        return lodash_1.merge({ '@context': `${config.settings.endpoints[app]}/context/${model}` }, attrs);
+        return (0, lodash_1.merge)({ '@context': `${config.settings.endpoints[app]}/context/${model}` }, attrs);
     },
     contextUrl: (app, model, config) => {
         config = config || config_1.Config.instance;
@@ -46,11 +47,11 @@ const chch = Object.assign((one, two, three) => {
             var page = 1;
             var result = { objects: [] };
             var subject = new subject_1.Subject(app, model);
-            lodash_1.merge(params, { page: page });
+            (0, lodash_1.merge)(params, { page: page });
             var fetch = function () {
-                var action = lodash_1.last(actionName.match(/(\$[c|m]:)?(.*)/));
+                var action = (0, lodash_1.last)(actionName.match(/(\$[c|m]:)?(.*)/));
                 var promise;
-                if (lodash_1.startsWith(actionName, '$m')) {
+                if ((0, lodash_1.startsWith)(actionName, '$m')) {
                     promise = subject.$m(action, params);
                 }
                 else {
@@ -59,7 +60,7 @@ const chch = Object.assign((one, two, three) => {
                 promise
                     .then(function (pageResult) {
                     page = page + 1;
-                    lodash_1.merge(params, { page: page });
+                    (0, lodash_1.merge)(params, { page: page });
                     result.objects = result.objects.concat(pageResult.objects);
                     if ((page <= 100) && (page <= (pageResult.headers && pageResult.headers['x-total-pages'] || 0))) {
                         fetch();

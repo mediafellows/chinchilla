@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Subject = void 0;
 const lodash_1 = require("lodash");
 const context_1 = require("./context");
 const config_1 = require("./config");
@@ -11,42 +12,42 @@ const tools_1 = require("./tools");
 class Subject {
     static detachFromSubject(objects) {
         var detach = function (object) {
-            var copy = lodash_1.clone(object);
+            var copy = (0, lodash_1.clone)(object);
             delete copy['$subject'];
             return copy;
         };
-        if (lodash_1.isArray(objects)) {
-            return lodash_1.map(objects, detach);
+        if ((0, lodash_1.isArray)(objects)) {
+            return (0, lodash_1.map)(objects, detach);
         }
-        else if (lodash_1.isPlainObject(objects)) {
+        else if ((0, lodash_1.isPlainObject)(objects)) {
             return detach(objects);
         }
         return objects;
     }
     constructor(one, two, three) {
         this.id = cache_1.Cache.instance.random('subject');
-        if (lodash_1.isString(one)) {
+        if ((0, lodash_1.isString)(one)) {
             // one -> app, two -> model, three -> config
-            if (lodash_1.isEmpty(two) || !lodash_1.isString(two))
+            if ((0, lodash_1.isEmpty)(two) || !(0, lodash_1.isString)(two))
                 throw new Error("chinchilla: missing 'model' param");
-            if (tools_1.Tools.isNode && lodash_1.isEmpty(three))
+            if (tools_1.Tools.isNode && (0, lodash_1.isEmpty)(three))
                 throw new Error("chinchilla: missing 'config' param (in NodeJs context)");
             this.config = three || config_1.Config.instance;
             this.contextUrl = `${this.config.settings.endpoints[one]}/context/${two}`;
         }
         else {
             // one -> object(s), two -> config
-            if (tools_1.Tools.isNode && lodash_1.isEmpty(two))
+            if (tools_1.Tools.isNode && (0, lodash_1.isEmpty)(two))
                 throw new Error("chinchilla: missing 'config' param (in NodeJs context)");
             this.config = two || config_1.Config.instance;
-            lodash_1.isArray(one) ? this.addObjects(one) : this.addObject(one);
+            (0, lodash_1.isArray)(one) ? this.addObjects(one) : this.addObject(one);
         }
     }
     memberAction(name, inputParams, options) {
         var promise;
         return promise = this.context.ready.then((context) => {
             var contextAction = context.memberAction(name);
-            var mergedParams = lodash_1.merge({}, this.objectParams, inputParams);
+            var mergedParams = (0, lodash_1.merge)({}, this.objectParams, inputParams);
             var action = new action_1.Action(contextAction, mergedParams, this.subject, this.config, options);
             promise['$objects'] = action.result.objects;
             return action.ready;
@@ -59,7 +60,7 @@ class Subject {
     collectionAction(name, inputParams, options) {
         return this.context.ready.then((context) => {
             var contextAction = context.collectionAction(name);
-            var mergedParams = lodash_1.merge({}, this.objectParams, inputParams);
+            var mergedParams = (0, lodash_1.merge)({}, this.objectParams, inputParams);
             return new action_1.Action(contextAction, mergedParams, this.subject, this.config, options).ready;
         });
     }
@@ -68,7 +69,7 @@ class Subject {
         return this.collectionAction.apply(this, args);
     }
     $$(...args) {
-        if (this.subject && lodash_1.isArray(this.subject)) {
+        if (this.subject && (0, lodash_1.isArray)(this.subject)) {
             return this.collectionAction.apply(this, args);
         }
         else {
@@ -83,7 +84,7 @@ class Subject {
     //
     // chch('um', 'user').new(first_name: 'Peter')
     new(attrs = {}) {
-        this.subject = lodash_1.merge({ '@context': this.contextUrl, '$subject': this.id }, attrs);
+        this.subject = (0, lodash_1.merge)({ '@context': this.contextUrl, '$subject': this.id }, attrs);
         return this;
     }
     get context() {
@@ -92,16 +93,16 @@ class Subject {
         return this._context = context_1.Context.get(this.contextUrl, this.config);
     }
     get objects() {
-        return lodash_1.isArray(this.subject) ? this.subject : [this.subject];
+        return (0, lodash_1.isArray)(this.subject) ? this.subject : [this.subject];
     }
     get object() {
-        return lodash_1.isArray(this.subject) ? lodash_1.first(this.subject) : this.subject;
+        return (0, lodash_1.isArray)(this.subject) ? (0, lodash_1.first)(this.subject) : this.subject;
     }
     get objectParams() {
         return extractor_1.Extractor.extractMemberParams(this.context, this.objects);
     }
     destroy() {
-        lodash_1.each(this.objects, (object) => {
+        (0, lodash_1.each)(this.objects, (object) => {
             for (var key in object) {
                 delete object[key];
             }
@@ -112,7 +113,7 @@ class Subject {
     }
     addObjects(objects) {
         this.subject = [];
-        lodash_1.each(objects, (obj) => {
+        (0, lodash_1.each)(objects, (obj) => {
             obj.$subject = this.id;
             this.moveAssociationReferences(obj);
             this.initAssociationGetters(obj);
@@ -137,16 +138,16 @@ class Subject {
             var value = object[key];
             if (key === '$associations')
                 continue;
-            if (lodash_1.isArray(value)) {
-                var el = lodash_1.first(value);
-                if (lodash_1.isPlainObject(el) && el['@id']) {
+            if ((0, lodash_1.isArray)(value)) {
+                var el = (0, lodash_1.first)(value);
+                if ((0, lodash_1.isPlainObject)(el) && el['@id']) {
                     // HABTM
-                    object.$associations[key] = lodash_1.clone(value);
+                    object.$associations[key] = (0, lodash_1.clone)(value);
                     delete object[key];
                 }
             }
-            else if (lodash_1.isPlainObject(value) && value['@id']) {
-                object.$associations[key] = lodash_1.clone(value);
+            else if ((0, lodash_1.isPlainObject)(value) && value['@id']) {
+                object.$associations[key] = (0, lodash_1.clone)(value);
                 delete object[key];
             }
         }
@@ -154,7 +155,7 @@ class Subject {
     initAssociationGetters(object) {
         if (!object.$associations)
             return;
-        lodash_1.each(object.$associations, (_value, key) => {
+        (0, lodash_1.each)(object.$associations, (_value, key) => {
             Object.defineProperty(object, key, {
                 get: () => {
                     return this.association(key).getDataFor(object);

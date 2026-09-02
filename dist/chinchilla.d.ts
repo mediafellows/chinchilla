@@ -2,7 +2,7 @@ import { Subject } from './chinchilla/subject';
 import { Config, Cookies, NoCookies } from './chinchilla/config';
 import { Cache, NoCache } from './chinchilla/cache';
 import { Extractor } from './chinchilla/extractor';
-declare const chch: ((one: any, two?: string | Config, three?: Config) => Subject) & {
+declare const chch: ((one: string | any, two?: string | Config, three?: Config) => Subject) & {
     config: Config;
     cache: Cache;
     cookies: typeof Cookies;

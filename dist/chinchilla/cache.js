@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Cache = exports.StorageCache = exports.RuntimeCache = exports.NoCache = exports.BaseCache = void 0;
 const lodash_1 = require("lodash");
 const config_1 = require("./config");
 const tools_1 = require("./tools");
@@ -72,11 +73,11 @@ class RuntimeCache extends BaseCache {
         const keyparts = extkey.split('*');
         if (keyparts.length > 1) {
             const toDelete = [];
-            lodash_1.each(this.storage, (_val, key) => {
-                if (lodash_1.startsWith(key, keyparts[0]))
+            (0, lodash_1.each)(this.storage, (_val, key) => {
+                if ((0, lodash_1.startsWith)(key, keyparts[0]))
                     toDelete.push(key);
             });
-            lodash_1.each(toDelete, (key) => delete this.storage[key]);
+            (0, lodash_1.each)(toDelete, (key) => delete this.storage[key]);
         }
         else {
             delete this.storage[extkey];
@@ -107,10 +108,10 @@ class StorageCache extends BaseCache {
             const toDelete = [];
             for (var i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (lodash_1.startsWith(key, keyparts[0]))
+                if ((0, lodash_1.startsWith)(key, keyparts[0]))
                     toDelete.push(key);
             }
-            lodash_1.each(toDelete, (key) => this.storage.removeItem(key));
+            (0, lodash_1.each)(toDelete, (key) => this.storage.removeItem(key));
         }
         else {
             this.storage.removeItem(extkey);
@@ -120,10 +121,10 @@ class StorageCache extends BaseCache {
         const toDelete = [];
         for (var i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (lodash_1.startsWith(key, PREFIX))
+            if ((0, lodash_1.startsWith)(key, PREFIX))
                 toDelete.push(key);
         }
-        lodash_1.each(toDelete, (key) => this.storage.removeItem(key));
+        (0, lodash_1.each)(toDelete, (key) => this.storage.removeItem(key));
     }
 }
 exports.StorageCache = StorageCache;

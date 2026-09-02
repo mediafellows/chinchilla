@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Result = void 0;
 const lodash_1 = require("lodash");
 const subject_1 = require("./subject");
 class Result {
@@ -20,10 +21,10 @@ class Result {
                 if (!members)
                     return;
                 new subject_1.Subject(members, config);
-                lodash_1.each(members, (node) => {
+                (0, lodash_1.each)(members, (node) => {
                     if (node.parent_id) {
                         // this is a child
-                        var parent = lodash_1.find(members, (x) => {
+                        var parent = (0, lodash_1.find)(members, (x) => {
                             return x.id === node.parent_id;
                         });
                         if (parent) {
@@ -42,32 +43,32 @@ class Result {
             case 'collection':
             case 'search_collection':
                 this.pagination = {};
-                lodash_1.each(Result.paginationProps, (prop) => {
+                (0, lodash_1.each)(Result.paginationProps, (prop) => {
                     if (result.body[prop]) {
                         this.pagination[prop.substr(1)] = result.body[prop];
                     }
                 });
-                lodash_1.each(result.body.members, (member) => {
+                (0, lodash_1.each)(result.body.members, (member) => {
                     this.objects.push(member);
                 });
                 if (this.options.rawResult)
                     break;
-                var byContext = lodash_1.groupBy(this.objects, '@context');
+                var byContext = (0, lodash_1.groupBy)(this.objects, '@context');
                 // creates new Subject for each group ob objects that share the same @context
-                lodash_1.each(byContext, (objects) => {
+                (0, lodash_1.each)(byContext, (objects) => {
                     new subject_1.Subject(objects, config);
                 });
                 break;
             default:
-                this.objects = lodash_1.isArray(result.body) ? result.body : [result.body];
+                this.objects = (0, lodash_1.isArray)(result.body) ? result.body : [result.body];
                 if (result.body && !this.options.rawResult)
                     new subject_1.Subject(this.object, config);
                 break;
         }
     }
     get object() {
-        return lodash_1.first(this.objects);
+        return (0, lodash_1.first)(this.objects);
     }
 }
-Result.paginationProps = ['@total_count', '@total_pages', '@current_page'];
 exports.Result = Result;
+Result.paginationProps = ['@total_count', '@total_pages', '@current_page'];

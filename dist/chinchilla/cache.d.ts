@@ -41,5 +41,5 @@ export declare class Cache {
     constructor();
     clear(): void;
     random(prefix?: string): string;
-    static readonly instance: Cache;
+    static get instance(): Cache;
 }

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tools = void 0;
 const request = require("superagent");
 const lodash_1 = require("lodash");
 const cache_1 = require("./cache");
@@ -23,7 +24,7 @@ class Tools {
         }
     }
     static handleError(err, res, config) {
-        var error = new Error(lodash_1.get(res, 'body.description') || lodash_1.get(err, 'response.statusText') || 'No error details available');
+        var error = new Error((0, lodash_1.get)(res, 'body.description') || (0, lodash_1.get)(err, 'response.statusText') || 'No error details available');
         if (res) {
             error['headers'] = res.headers;
             error['object'] = res.body;
@@ -34,7 +35,7 @@ class Tools {
             error['stack'] = err.stack;
         }
         else {
-            const errMsg = lodash_1.result(err, 'toString');
+            const errMsg = (0, lodash_1.result)(err, 'toString');
             error['statusCode'] = 500;
             error['statusText'] = errMsg || 'Unknown error';
         }

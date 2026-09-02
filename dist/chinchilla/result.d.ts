@@ -9,5 +9,5 @@ export declare class Result {
     objects: any[];
     pagination: any;
     success(result: any, config: Config, options?: any): void;
-    readonly object: any;
+    get object(): any;
 }

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Extractor = void 0;
 const lodash_1 = require("lodash");
 const UriTemplate = require("uri-templates");
 class Extractor {
@@ -22,17 +23,17 @@ class Extractor {
     // the returned object would be:
     // { id: 4, user_id: 4 }
     static uriParams(action, params = {}) {
-        var uriParams = lodash_1.clone(params);
-        lodash_1.each(action.mappings, (mapping) => {
+        var uriParams = (0, lodash_1.clone)(params);
+        (0, lodash_1.each)(action.mappings, (mapping) => {
             if (!uriParams[mapping.variable])
                 uriParams[mapping.variable] = params[mapping.source];
         });
         return uriParams;
     }
     static extractParams(contextAction, obj) {
-        if (lodash_1.isEmpty(obj) || lodash_1.isEmpty(contextAction))
+        if ((0, lodash_1.isEmpty)(obj) || (0, lodash_1.isEmpty)(contextAction))
             return {};
-        if (lodash_1.isArray(obj)) {
+        if ((0, lodash_1.isArray)(obj)) {
             return Extractor.extractArrayValues(contextAction, obj);
         }
         else {
@@ -46,9 +47,9 @@ class Extractor {
         var result = {};
         var template = new UriTemplate(contextAction.template);
         var values = template.fromUri(id);
-        if (lodash_1.isEmpty(values))
+        if ((0, lodash_1.isEmpty)(values))
             return {};
-        lodash_1.each(contextAction.mappings, (mapping) => {
+        (0, lodash_1.each)(contextAction.mappings, (mapping) => {
             var value = values[mapping.variable];
             if (!value)
                 return;
@@ -57,17 +58,17 @@ class Extractor {
         return result;
     }
     static extractArrayValues(contextAction, objects) {
-        var values = lodash_1.map(objects, (obj) => {
+        var values = (0, lodash_1.map)(objects, (obj) => {
             return Extractor.extractValues(contextAction, obj);
         });
-        values = lodash_1.compact(values);
+        values = (0, lodash_1.compact)(values);
         var result = {};
-        lodash_1.each(contextAction.mappings, (mapping) => {
+        (0, lodash_1.each)(contextAction.mappings, (mapping) => {
             result[mapping.source] = [];
-            lodash_1.each(values, (attrs) => {
+            (0, lodash_1.each)(values, (attrs) => {
                 if (!attrs[mapping.source])
                     return;
-                if (lodash_1.includes(result[mapping.source], attrs[mapping.source]))
+                if ((0, lodash_1.includes)(result[mapping.source], attrs[mapping.source]))
                     return;
                 result[mapping.source].push(attrs[mapping.source]);
             });

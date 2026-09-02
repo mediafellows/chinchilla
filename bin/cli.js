@@ -2,7 +2,6 @@
 const _ = require('lodash')
 const path = require('path')
 const repl = require('repl')
-const stubber = require('async-repl/stubber')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const os = require('os')
@@ -93,4 +92,3 @@ Object.defineProperty(replInstance.context, 'exit', {
   }
 })
 
-stubber(replInstance)
