@@ -15,6 +15,6 @@ export declare class Association {
     static get(subject: Subject, name: string, config: Config): any;
     getDataFor(object: Object): any;
     private fillCache;
-    private readonly associationParams;
+    private get associationParams();
     private readAssociationData;
 }

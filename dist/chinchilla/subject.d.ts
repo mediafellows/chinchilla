@@ -16,10 +16,10 @@ export declare class Subject {
     $$(...args: any[]): any;
     association(name: string): Association;
     new(attrs?: {}): this;
-    readonly context: Context;
-    readonly objects: any;
-    readonly object: Object;
-    readonly objectParams: Object;
+    get context(): Context;
+    get objects(): any;
+    get object(): Object;
+    get objectParams(): Object;
     destroy(): void;
     private addObjects;
     private addObject;

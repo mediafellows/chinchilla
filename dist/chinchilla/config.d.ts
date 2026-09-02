@@ -37,7 +37,7 @@ export declare class Config {
     settings: Settings;
     cookies: ICookies;
     static _instance: Config;
-    static readonly instance: Config;
+    static get instance(): Config;
     constructor(settings?: {});
     initGetSet(): void;
     clone(): Config;
@@ -52,5 +52,5 @@ export declare class Config {
     clear(): void;
     cookieKey(name: any): string;
     setFlavour(name: any, value: any): any;
-    readonly activeFlavours: any;
+    get activeFlavours(): any;
 }

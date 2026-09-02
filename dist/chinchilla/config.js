@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Config = exports.Cookies = exports.NoCookies = void 0;
 const Kekse = require("cookies-js");
 const qs = require("querystringify");
 const lodash_1 = require("lodash");
@@ -32,19 +33,19 @@ class Config {
     }
     constructor(settings = {}) {
         this.initGetSet();
-        this.settings = lodash_1.merge({
+        this.settings = (0, lodash_1.merge)({
             endpoints: {},
-            cookieTimeout: 30 * 24 * 60 * 60,
+            cookieTimeout: 30 * 24 * 60 * 60, // 1 month
             timestamp: Date.now() / 1000 | 0,
         }, settings);
         this.cookies = tools_1.Tools.isNode ? new NoCookies() : new Cookies();
     }
     initGetSet() {
-        lodash_1.each(settingNames, (prop) => {
+        (0, lodash_1.each)(settingNames, (prop) => {
             Object.defineProperty(this, prop, {
                 get: () => {
                     console.log(`chinchilla: 'config.${prop}' is deprecated. please use 'config.settings.${prop}' instead.`);
-                    return lodash_1.get(this.settings, prop);
+                    return (0, lodash_1.get)(this.settings, prop);
                 },
                 set: (value) => {
                     console.log(`chinchilla: 'config.${prop}' is deprecated. please use 'config.settings.${prop}' instead.`);
@@ -52,7 +53,7 @@ class Config {
                 }
             });
         });
-        lodash_1.each(configNames, (prop) => {
+        (0, lodash_1.each)(configNames, (prop) => {
             const tail = prop.charAt(0).toUpperCase() + prop.slice(1);
             this[`get${tail}`] = () => {
                 return this.getValue(prop);
@@ -66,7 +67,7 @@ class Config {
         });
     }
     clone() {
-        return new Config(lodash_1.clone(this.settings));
+        return new Config((0, lodash_1.clone)(this.settings));
     }
     setEndpoint(name, url) {
         this.settings.endpoints[name] = url;
@@ -114,7 +115,7 @@ class Config {
             this.updateCacheKey();
     }
     clear() {
-        lodash_1.each(configNames, (name) => {
+        (0, lodash_1.each)(configNames, (name) => {
             if (name === 'affiliationId')
                 return;
             this.clearValue(name);

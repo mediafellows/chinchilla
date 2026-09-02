@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Action = void 0;
 const lodash_1 = require("lodash");
 const UriTemplate = require("uri-templates");
 const Promise = require("bluebird");
@@ -15,29 +16,29 @@ const tools_1 = require("./tools");
 // * rejects empty objects {}
 // * rejects empty objects within array [{}]
 const cleanup = (object) => {
-    if (lodash_1.isEmpty(object))
+    if ((0, lodash_1.isEmpty)(object))
         return {};
     var cleaned = {};
-    lodash_1.each(object, (value, key) => {
-        if (/^\$/.test(key) || key === 'errors' || key === 'isPristine' || lodash_1.isFunction(value)) {
+    (0, lodash_1.each)(object, (value, key) => {
+        if (/^\$/.test(key) || key === 'errors' || key === 'isPristine' || (0, lodash_1.isFunction)(value)) {
             // skip
         }
-        else if (lodash_1.isArray(value)) {
-            if (lodash_1.isPlainObject(value[0])) {
-                var subset = lodash_1.map(value, (x) => {
+        else if ((0, lodash_1.isArray)(value)) {
+            if ((0, lodash_1.isPlainObject)(value[0])) {
+                var subset = (0, lodash_1.map)(value, (x) => {
                     return cleanup(x);
                 });
-                cleaned[key] = lodash_1.reject(subset, (x) => {
-                    return lodash_1.isEmpty(x);
+                cleaned[key] = (0, lodash_1.reject)(subset, (x) => {
+                    return (0, lodash_1.isEmpty)(x);
                 });
             }
             else {
                 cleaned[key] = value;
             }
         }
-        else if (lodash_1.isPlainObject(value)) {
+        else if ((0, lodash_1.isPlainObject)(value)) {
             var cleanedValue = cleanup(value);
-            if (!lodash_1.isEmpty(cleanedValue))
+            if (!(0, lodash_1.isEmpty)(cleanedValue))
                 cleaned[key] = cleanedValue;
         }
         else {
@@ -66,9 +67,9 @@ class Action {
         // reformat body to match rails API
         this.body = this.formatBody(body);
         this.ready = new Promise((resolve, reject) => {
-            var required = lodash_1.filter(this.contextAction.mappings, 'required');
+            var required = (0, lodash_1.filter)(this.contextAction.mappings, 'required');
             for (var index in required) {
-                var variable = lodash_1.get(required[index], 'variable');
+                var variable = (0, lodash_1.get)(required[index], 'variable');
                 if (!this.params[variable]) {
                     const msg = `Required param '${variable}' for '${this.contextAction.template}' missing!`;
                     watcher_1.Watcher.complete(this.id);
@@ -113,7 +114,7 @@ class Action {
                 req = req.set('Mpx-Flavours', config.getFlavours());
             }
             if (!tools_1.Tools.isNode) {
-                req = req.set("X-Window-Location", lodash_1.get(window, 'location.href', ''));
+                req = req.set("X-Window-Location", (0, lodash_1.get)(window, 'location.href', ''));
             }
             // add custom headers
             if (options && (options.header || options.headers)) {
@@ -140,14 +141,14 @@ class Action {
         });
     }
     formatBody(data) {
-        if (lodash_1.isEmpty(data))
+        if ((0, lodash_1.isEmpty)(data))
             return;
         var formatted = {};
         if (this.options.rawRequest) {
             formatted = cleanup(data);
         }
-        else if (lodash_1.isArray(data)) {
-            lodash_1.each(data, (obj) => {
+        else if ((0, lodash_1.isArray)(data)) {
+            (0, lodash_1.each)(data, (obj) => {
                 formatted[obj.id] = this.remapAttributes(cleanup(obj));
             });
         }
@@ -157,16 +158,16 @@ class Action {
         return formatted;
     }
     remapAttributes(object) {
-        lodash_1.each(object, (value, key) => {
+        (0, lodash_1.each)(object, (value, key) => {
             // split csv string to array
-            if (lodash_1.isString(value) && /_ids$/.test(key)) {
-                var values = lodash_1.filter(value.split(','), (item) => {
-                    return !lodash_1.isEmpty(item);
+            if ((0, lodash_1.isString)(value) && /_ids$/.test(key)) {
+                var values = (0, lodash_1.filter)(value.split(','), (item) => {
+                    return !(0, lodash_1.isEmpty)(item);
                 });
                 object[key] = values;
             }
             // append '_attributes' to nested objects (attributes that are an object or are an array of objects)
-            else if (lodash_1.isPlainObject(value) || (lodash_1.isArray(value) && lodash_1.isPlainObject(lodash_1.first(value)))) {
+            else if ((0, lodash_1.isPlainObject)(value) || ((0, lodash_1.isArray)(value) && (0, lodash_1.isPlainObject)((0, lodash_1.first)(value)))) {
                 object[`${key}_attributes`] = value;
                 delete object[key];
             }

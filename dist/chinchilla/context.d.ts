@@ -28,10 +28,10 @@ export declare class Context {
     data: any;
     static get(contextUrl: string, config: Config): any;
     constructor(dataPromise: any);
-    readonly context: any;
-    readonly id: any;
-    readonly properties: any;
-    readonly constants: any;
+    get context(): any;
+    get id(): any;
+    get properties(): any;
+    get constants(): any;
     property(name: string): ContextProperty;
     constant(name: string): any;
     association(name: string): ContextProperty;
